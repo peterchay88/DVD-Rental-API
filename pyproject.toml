@@ -1,0 +1,13 @@
+[project]
+name = "dvd-rental"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Peter Chay", email = "peterchay88@gmail.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "alembic>=1.16.5",
+    "asyncpg>=0.31.0",
+    "fastapi[standard]>=0.128.8",
+]
