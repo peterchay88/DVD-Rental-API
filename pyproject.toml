@@ -10,4 +10,5 @@ dependencies = [
     "alembic>=1.16.5",
     "asyncpg>=0.31.0",
     "fastapi[standard]>=0.128.8",
+    "python-dotenv>=1.2.1",
 ]
