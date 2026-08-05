@@ -1,8 +1,11 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+import uvicorn
 
-from db.session import engine
+
+from app.api.v1.endpoints import actor
+from app.db.session import engine
 
 
 @asynccontextmanager
@@ -13,3 +16,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.include_router(actor.router)
+
+
+if __name__ == '__main__':
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)

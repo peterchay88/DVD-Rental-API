@@ -15,4 +15,3 @@ class Actor(BaseModel):
     id: int
     first_name: str
     last_name: str
-

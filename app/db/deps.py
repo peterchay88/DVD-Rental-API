@@ -1,6 +1,9 @@
 from collections.abc import AsyncGenerator
+
 from sqlalchemy.ext.asyncio import AsyncSession
-from db.session import async_session_local
+
+from .session import async_session_local
+
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """Yields an asynchronous database session for use in FastAPI endpoints."""
