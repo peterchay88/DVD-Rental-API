@@ -1,1 +1,2 @@
 from app.repositories.actors_repository import ActorsRepository
+from app.repositories.actors_repository import get_actors_repository
