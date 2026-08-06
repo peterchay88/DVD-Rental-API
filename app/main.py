@@ -4,7 +4,7 @@ from fastapi import FastAPI
 import uvicorn
 
 
-from app.api.v1.endpoints import actor
+from app.router.v1 import actor
 from app.db.session import engine
 
 
