@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response, status
 from typing import Annotated
 
 from app.repositories import ActorsRepository, get_actors_repository
@@ -30,17 +30,21 @@ async def get_actors(
 @router.get("/actors/{actor_id}", tags=["actors"])
 async def get_actor_by_id(
         actor_id: int,
-        repo: actor_dependency):
+        repo: actor_dependency,
+        response: Response
+):
     """
     Endpoint to retrieve an actor by their ID.
 
     Args:
         actor_id (int): The ID of the actor to retrieve.
         repo (ActorsRepository): The actors repository, injected by FastAPI's dependency system.
+        response (Response): Response object that stores the response from the API.
     """
     row = await repo.get_actor_by_id(actor_id=actor_id)
 
     if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Actor not found"}
 
     actor = [ActorRead.model_validate(row)]
