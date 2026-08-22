@@ -3,10 +3,10 @@ import logging
 from fastapi import APIRouter, Depends, Response, status, Query
 from typing import Annotated
 
-from ...repositories import ActorsRepository, get_actors_repository
-from ...schemas.actor_read import ActorRead
-from ...schemas.json_data import JsonData
-from ...schemas.json_error import JsonError
+from app.repositories import ActorsRepository, get_actors_repository
+from app.schemas.actor_read import ActorRead
+from app.schemas.json_data import JsonData
+from app.schemas.json_error import JsonError
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

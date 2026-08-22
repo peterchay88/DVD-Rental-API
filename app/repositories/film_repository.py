@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..db.deps import get_db
-from ..models.film_table import FilmTable
+from app.db.deps import get_db
+from app.models.film_table import FilmTable
 
 
 class FilmRepository:

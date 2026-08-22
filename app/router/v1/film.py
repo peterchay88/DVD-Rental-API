@@ -3,10 +3,10 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Response, status, Query
 
-from ...schemas.film_read import FilmRead
-from ...repositories.film_repository import FilmRepository, get_fil_repository
-from ...schemas.json_data import JsonData
-from ...schemas.json_error import JsonError
+from app.schemas.film_read import FilmRead
+from app.repositories.film_repository import FilmRepository, get_fil_repository
+from app.schemas.json_data import JsonData
+from app.schemas.json_error import JsonError
 
 router = APIRouter()
 logger = logging.getLogger(__name__)

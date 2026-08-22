@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .base_table import Base
+from app.models.base_table import Base
 
 
 class FilmTable(Base):

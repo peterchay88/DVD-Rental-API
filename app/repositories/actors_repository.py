@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..db.deps import get_db
-from ..models.actor_table import ActorTable
+from app.db.deps import get_db
+from app.models.actor_table import ActorTable
 
 
 class ActorsRepository:

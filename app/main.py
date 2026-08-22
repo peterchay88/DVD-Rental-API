@@ -4,9 +4,9 @@ from fastapi import FastAPI
 import uvicorn
 
 
-from .db.session import engine
-from .router.v1 import actor
-from .router.v1 import film
+from app.db.session import engine
+from app.router.v1 import actor
+from app.router.v1 import film
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
