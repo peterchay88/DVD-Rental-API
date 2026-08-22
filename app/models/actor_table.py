@@ -1,8 +1,8 @@
 from sqlalchemy import String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 
-class Base(DeclarativeBase):
-    pass
+from .base_table import Base
+
 
 class ActorTable(Base):
     __tablename__ = "actor"

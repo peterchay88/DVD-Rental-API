@@ -4,8 +4,8 @@ from fastapi import FastAPI
 import uvicorn
 
 
-from app.router.v1 import actor
-from app.db.session import engine
+from .router.v1 import actor
+from .db.session import engine
 
 
 @asynccontextmanager

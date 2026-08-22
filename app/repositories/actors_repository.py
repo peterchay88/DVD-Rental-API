@@ -2,8 +2,8 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.deps import get_db
-from app.models.actor_table import ActorTable
+from ..db.deps import get_db
+from ..models.actor_table import ActorTable
 
 
 class ActorsRepository:
@@ -12,7 +12,10 @@ class ActorsRepository:
         self.db = db
         self.actor_table = ActorTable
 
-    async def get_all_actors(self, limit: int = None):
+    async def get_all_actors(
+            self,
+            limit: int = None
+    ) -> list[ActorTable] | None:
         """
         Retrieve all actors from the database.
 
@@ -22,6 +25,9 @@ class ActorsRepository:
         Returns:
             list[Actor]: A list of Actor model instances.
         """
+        if limit is not None and limit <= 0:
+            raise ValueError("Limit must be a positive integer.")
+
         query = select(self.actor_table)
         if limit is not None:
             query = query.order_by(self.actor_table.actor_id).limit(limit)

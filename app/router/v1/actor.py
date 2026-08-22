@@ -1,11 +1,15 @@
-from fastapi import APIRouter, Depends, Response, status
+import logging
+
+from fastapi import APIRouter, Depends, Response, status, Query
 from typing import Annotated
 
-from app.repositories import ActorsRepository, get_actors_repository
-from app.schemas.actor_read import ActorRead
-from app.schemas.json_data import JsonData
+from ...repositories import ActorsRepository, get_actors_repository
+from ...schemas.actor_read import ActorRead
+from ...schemas.json_data import JsonData
+from ...schemas.json_error import JsonError
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 actor_dependency = Annotated[ActorsRepository, Depends(get_actors_repository)]
 
@@ -13,7 +17,8 @@ actor_dependency = Annotated[ActorsRepository, Depends(get_actors_repository)]
 @router.get("/actors", tags=["actors"])
 async def get_actors(
         repo: actor_dependency,
-        limit: int = None):
+        limit: int | None = Query(default=None, ge=1, description="Must be >= 1")
+):
     """
     Endpoint to retrieve a list of actors from the database.
 
@@ -45,7 +50,10 @@ async def get_actor_by_id(
 
     if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
-        return {"message": "Actor not found"}
+        logger.error(f"Error fetching actor with ID: {actor_id}. Actor not found.")
+        return JsonError(error={
+            "message": f"Actor with ID: {actor_id} not found"
+        })
 
     actor = [ActorRead.model_validate(row)]
     return JsonData(data=actor)
