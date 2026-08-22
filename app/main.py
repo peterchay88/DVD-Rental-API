@@ -1,12 +1,13 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-
 
 from app.db.session import engine
 from app.router.v1 import actor
 from app.router.v1 import film
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,6 +19,18 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.include_router(actor.router)
 app.include_router(film.router)
+
+origins = [
+    "http://localhost:4200",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 if __name__ == '__main__':
