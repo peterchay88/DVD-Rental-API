@@ -23,4 +23,4 @@ class FilmRead(BaseModel):
     length: int | None
     replacement_cost: float
     rating: str | None
-    special_features: str | None
+    special_features: list[str] | None

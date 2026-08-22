@@ -35,3 +35,29 @@ async def get_film_by_id(
     
     film = FilmRead.model_validate(row)
     return JsonData(data=[film])
+
+
+@router.get("/films", tags=["films"])
+async def get_films(
+    film_repo: film_dependency,
+    response: Response = None,
+    limit: int = Query(0, description="The number of films to return.")
+) -> JsonError[str] | JsonData[FilmRead]:
+    """
+    Endpoint to retrieve a list of films.
+    Args:
+        film_repo (FilmRepository): The film repository, injected by FastAPI's dependency system.
+        response (Response): Response object that stores the response from the API.
+        limit (int, optional): The number of rows to limit
+
+    Returns:
+        JsonError[str] | JsonData[FilmRead]: _description_
+    """
+    rows = await film_repo.get_films(limit)
+    
+    if not rows:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return JsonError(error={"message": "No films returned"})
+    
+    films = [FilmRead.model_validate(row) for row in rows]
+    return JsonData(data=films)

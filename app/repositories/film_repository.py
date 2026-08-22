@@ -29,6 +29,30 @@ class FilmRepository:
         result = await self.db.execute(query)
         return result.scalar_one_or_none()
     
+    async def get_films(
+        self,
+        limit: int
+    ) -> FilmTable | None:
+        """
+        Gets a a list of films
+
+        Args:
+            limit (int): The number of films to return
+        """
+        if limit < 0:
+                    raise ValueError("Limit must be a positive integer.")
+                
+        if limit == 0:
+            query = select(self.film_table).order_by("film_id")
+        else:
+            query = (
+                select(self.film_table)
+                    .limit(limit)
+                    .order_by("film_id"))
+        
+        result = await self.db.execute(query)
+        return result.scalars().all()
+    
 
 def get_fil_repository(db: AsyncSession = Depends(get_db)) -> FilmRepository:
     """
