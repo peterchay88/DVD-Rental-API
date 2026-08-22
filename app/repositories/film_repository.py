@@ -28,3 +28,13 @@ class FilmRepository:
         query = select(self.film_table).where(self.film_table.film_id == film_id)
         result = await self.db.execute(query)
         return result.scalar_one_or_none()
+    
+
+def get_fil_repository(db: AsyncSession = Depends(get_db)) -> FilmRepository:
+    """
+    Factory function to create and return an instance of FilmRepository.
+
+    Returns:
+        FilmRepository: An instance of the FilmRepository class.
+    """
+    return FilmRepository(db)

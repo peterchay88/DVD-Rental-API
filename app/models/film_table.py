@@ -16,5 +16,6 @@ class FilmTable(Base):
     length: Mapped[int] = mapped_column(nullable=True)
     replacement_cost: Mapped[float] = mapped_column(nullable=False)
     rating: Mapped[str] = mapped_column(nullable=True)
+    special_features: Mapped[str] = mapped_column(nullable=True)
     
     

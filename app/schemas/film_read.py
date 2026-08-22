@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
 
@@ -16,7 +16,8 @@ class FilmRead(BaseModel):
     description: str | None
     release_year: int | None
     language_id: int
-    original_language_id: int | None
+    # Column name from table is language_id, but we want to use original_language_id in the schema
+    original_language_id: int | None = Field(default=None, alias="language_id") 
     rental_duration: int
     rental_rate: float
     length: int | None

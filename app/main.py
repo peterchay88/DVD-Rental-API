@@ -4,9 +4,9 @@ from fastapi import FastAPI
 import uvicorn
 
 
-from .router.v1 import actor
 from .db.session import engine
-
+from .router.v1 import actor
+from .router.v1 import film
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -17,6 +17,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 app.include_router(actor.router)
+app.include_router(film.router)
 
 
 if __name__ == '__main__':
