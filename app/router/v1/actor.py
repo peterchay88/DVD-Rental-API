@@ -18,7 +18,7 @@ actor_dependency = Annotated[ActorsRepository, Depends(get_actors_repository)]
 async def get_actors(
         repo: actor_dependency,
         limit: int | None = Query(default=None, ge=1, description="Must be >= 1")
-):
+) -> JsonData[ActorRead]:
     """
     Endpoint to retrieve a list of actors from the database.
 
@@ -37,7 +37,7 @@ async def get_actor_by_id(
         actor_id: int,
         repo: actor_dependency,
         response: Response
-):
+) -> JsonError[str] | JsonData[ActorRead]:
     """
     Endpoint to retrieve an actor by their ID.
 
